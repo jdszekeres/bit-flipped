@@ -17,11 +17,25 @@ char *stringify(int intg) {
   asprintf (&str, "%i", intg);
   return str;
 }
+int *osdetect(f) {
+  #if __APPLE__
+	    fputs("device: Apple", f);
+	#elif _WIN32
+	    fputs("device: Windows", f);
+	#elif __LINUX__
+	    fputs("device: Linux", f);
+	#elif BSD
+	    fputs("device: BSD", f);
+	#else
+	    //pass
+	#endif
+  return 0;
+}
 int main() {
   size_t gigabyte = 1073741824;
   size_t bytes = gigabyte;
   FILE *f;
-
+  int x = 0;
 
   unsigned int tests = 0;
   unsigned char total = 0;
@@ -42,8 +56,21 @@ int main() {
   
   while (time < 3600) {
     f = fopen("x.log", "a+");
-    if (time == 0) {
-      fputs("test, total, time\n", f);
+    if (x == 0) {
+        #if __APPLE__
+        fputs("device: Apple", f);
+      #elif _WIN32
+          fputs("device: Windows", f);
+      #elif __LINUX__
+          fputs("device: Linux", f);
+      #elif BSD
+          fputs("device: BSD", f);
+      #else
+          fputs("device: Unknown", f);
+      #endif
+
+      fputs("\ntest, total, time\n", f);
+      x += 1;
     }
     // We aren't going to miss a bitflip by being slow
     sleep(10);
