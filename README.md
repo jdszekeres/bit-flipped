@@ -20,5 +20,4 @@ Detection is via allocating a slice of zeroed memory, in our case a gigabyte, an
 + Beware smart memory systems - the Mac will compress least unused chunks of memory when running low on RAM and zeroes would compress quite well, effectively reducing the size of your cosmic ray detector =\[
 
 **Thanks to:**
-+ Thanks to [Brightness by Chameleon Design from the Noun Project](https://thenounproject.com/search/?q=brightness&i=374305) for the logo
 + Our computers for putting up with unsafe workplaces

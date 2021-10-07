@@ -12,10 +12,17 @@ char *timestamp()
   ltime = time(NULL); /* get current cal time */
   return asctime(localtime(&ltime));
 }
-
+char *stringify(int intg) {
+  char* str;
+  asprintf (&str, "%i", intg);
+  return str;
+}
 int main() {
   size_t gigabyte = 1073741824;
   size_t bytes = gigabyte;
+  FILE *f;
+
+
   unsigned int tests = 0;
   unsigned char total = 0;
   int divis = bytes/gigabyte;
@@ -31,26 +38,40 @@ int main() {
   printf("Run started: %s\n", timestamp());
   int time = 0;
   fflush(stdout);
-  while (total == 0) {
+  
+  
+  while (time < 3600) {
+    f = fopen("x.log", "a+");
+    if (time == 0) {
+      fputs("test, total, time\n", f);
+    }
     // We aren't going to miss a bitflip by being slow
     sleep(10);
 
     // Naively walk through and tally all zero bytes
-    for (size_t i = 0; i < bytes; ++i) {
+    for (size_t i = 0; i < bytes-1; ++i) {
       total += buffer[i];
+
     }
 
     // Keep the user sane that it isn't frozen :)
     fprintf(stderr, "\rTest run # %d", tests);
     fprintf(stderr, "\n# of flips %d", total);
     fprintf(stderr, "\ntime %d", time);
+    
+    fputs(stringify(tests), f);
+    fputs(",", f);
+    fputs(stringify(total), f);
+    fputs(",", f);
+    fputs(stringify(time), f);
+
+    fputs("\n", f);
     ++tests;
     time += 10;
+    fclose(f);
+
   }
 
-  printf("--- !!! ---");
-  printf("Error detected: %s\n", timestamp());
-  printf("Result should be 0 but is %d\n", total);
-  printf("Total tests run: %d\n", tests);
 
+  
 }
