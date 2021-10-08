@@ -21,7 +21,8 @@ int main() {
   size_t gigabyte = 1073741824;
   size_t bytes = gigabyte;
   FILE *f;
-
+  int h, m, s;
+  int done = 0;
 
   unsigned int tests = 0;
   unsigned char total = 0;
@@ -42,8 +43,9 @@ int main() {
   
   while (time < 3600) {
     f = fopen("x.log", "a+");
-    if (time == 0) {
+    if (done == 0) {
       fputs("test, total, time\n", f);
+      done += 1;
     }
     // We aren't going to miss a bitflip by being slow
     sleep(10);
@@ -53,17 +55,24 @@ int main() {
       total += buffer[i];
 
     }
-
+    h = (time/3600); 
+	
+    m = (time -(3600*h))/60;
+      
+    s = (time -(3600*h)-(m*60));
+      
+    char* cookie;
     // Keep the user sane that it isn't frozen :)
     fprintf(stderr, "\rTest run # %d", tests);
     fprintf(stderr, "\n# of flips %d", total);
     fprintf(stderr, "\ntime %d", time);
-    
+    asprintf (&cookie, "%d:%d:%d\n",h,m,s);
+
     fputs(stringify(tests), f);
     fputs(",", f);
     fputs(stringify(total), f);
     fputs(",", f);
-    fputs(stringify(time), f);
+    fputs(cookie, f);
 
     fputs("\n", f);
     ++tests;
