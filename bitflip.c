@@ -36,7 +36,7 @@ int main() {
   size_t bytes = gigabyte;
   FILE *f;
   int x = 0;
-
+  int h, m, s;
   unsigned int tests = 0;
   unsigned char total = 0;
   int divis = bytes/gigabyte;
@@ -82,17 +82,24 @@ int main() {
       total += buffer[i];
 
     }
-
+    h = (time/3600); 
+	
+    m = (time -(3600*h))/60;
+      
+    s = (time -(3600*h)-(m*60));
+      
+    char* cookie;
     // Keep the user sane that it isn't frozen :)
     fprintf(stderr, "\rTest run # %d", tests);
     fprintf(stderr, "\n# of flips %d", total);
     fprintf(stderr, "\ntime %d", time);
-    
+    asprintf (&cookie, "%d:%d:%d\n",h,m,s);
+
     fputs(stringify(tests), f);
     fputs(",", f);
     fputs(stringify(total), f);
     fputs(",", f);
-    fputs(stringify(time), f);
+    fputs(cookie, f);
 
     fputs("\n", f);
     ++tests;
