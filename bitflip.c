@@ -57,6 +57,8 @@ int main() {
   while (time < 3600) {
     f = fopen("x.log", "a+");
     if (x == 0) {
+      fputs(timestamp(), f);
+      fputs("\n", f);
         #if __APPLE__
         fputs("device: Apple", f);
       #elif _WIN32
@@ -68,7 +70,7 @@ int main() {
       #else
           fputs("device: Unknown", f);
       #endif
-
+      fputs("\n", f);
       fputs("\ntest, total, time\n", f);
       x += 1;
     }
