@@ -76,7 +76,7 @@ int main() {
     s = (time -(3600*h)-(m*60));
       
     char* cookie;
-    // Keep the user sane that it isn't frozen :)
+    
     fprintf(stderr, "\rTest run # %d", tests);
     fprintf(stderr, "\n# of flips %d", total);
     fprintf(stderr, "\ntime %d", time);
