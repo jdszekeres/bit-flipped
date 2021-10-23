@@ -17,20 +17,7 @@ char *stringify(int intg) {
   asprintf (&str, "%i", intg);
   return str;
 }
-int *osdetect(f) {
-  #if __APPLE__
-	    fputs("device: Apple", f);
-	#elif _WIN32
-	    fputs("device: Windows", f);
-	#elif __LINUX__
-	    fputs("device: Linux", f);
-	#elif BSD
-	    fputs("device: BSD", f);
-	#else
-	    //pass
-	#endif
-  return 0;
-}
+
 int main() {
   size_t gigabyte = 1073741824;
   size_t bytes = gigabyte;

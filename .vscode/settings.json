@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+
+        "*.py": "python",
+        "*.profile": "shellscript",
+        "*.db": "sql",
+
+        "*.txt": "plaintext",
+        "*.h": "c",
+        "cstdio": "c"
+    }
+}
